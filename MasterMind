@@ -1,0 +1,178 @@
+import java.awt.GridLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Random;
+
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+
+   public class Mastermind extends JFrame   implements ActionListener{
+	private Random random;
+	JPanel p = new JPanel();
+	colorButton guess[] = new colorButton[8];
+	private String[]color = {"1","2","3","4"};
+	private String[]same = new String[4];
+	private String[]color2 = new String[8];
+	private int count=0;
+	final String[] random1 = random();
+	int max=setMax();
+	
+    
+	public static void main(String[] args) {
+		new Mastermind();
+		
+		}
+	
+	public Mastermind(){
+		super("Mastermind");
+		setSize(600,125);
+		setLocation(425, 300);
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		JButton button = new JButton("Confirm");
+		
+		button.addActionListener(new ActionListener(){
+		    @Override
+		public void actionPerformed(ActionEvent e) {
+		   int lol=0;
+		  
+		   if(count<max){
+		  for(int i=0;i<4;i++){
+			  same[i]=color[i];
+		  }
+		  for(int i=0;i<4;i++){
+		  color[i]=guess[i].getColor();
+			   
+			   }
+	       for(int i=0;i<4;i++){
+	    	   if(same[i].equals(color[i])){
+	    		   lol+=1;
+	    	   }
+	       } 
+	       
+		   
+	       
+	       if(lol==4){
+	    	  JOptionPane.showMessageDialog(null, "hey! why did you input the same colors as last time?");
+	    	  return;
+	       }
+	       
+		   for(int x=0;x<4;x++){
+		   for(int i=0;i<4;i++){
+			   if(i!=x){
+			   if(color[i].equals(color[x])){
+				   JOptionPane.showMessageDialog(null, "hey! you cant pick a color for more than once!\n(Blanks also count as colors)");
+				   return;
+			   }
+			   }
+			   
+		   }
+		   }
+			  
+		   
+		   count++;
+		   
+		   if(check(random1)){
+			   JOptionPane.showMessageDialog(null, "Congrats! You have won this game by "+count+" tries! Just like God Ricky!");
+			   System.exit(0);
+
+		   }
+		   
+		   }
+		   
+			  
+		   else if(count==max){
+			   JOptionPane.showMessageDialog(null, "You failed by having "+max+" tries....Just like Steven....");
+			   System.exit(0);
+
+		   }
+		    }
+		   
+		});
+		
+		p.setLayout(new GridLayout(1,4));
+		
+		for (int i=0; i<4; i++){
+			guess[i]= new colorButton();
+			p.add(guess[i]);
+			
+		}
+		
+         p.add(button);
+		add(p);
+		
+		
+		setVisible(true);
+	}
+
+	@Override
+	public void actionPerformed(ActionEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+	public String[]random(){
+		boolean []s ={true,true,true,true,true,true,true,true};
+		
+		random =new Random();
+		String[]x =new String[4];
+	    
+	    color2[0]="red";
+	    color2[1]="blue";
+	    color2[2]="purple";
+	    color2[3]="orange";
+	    color2[4]="black";
+	    color2[5]="white";
+	    color2[6]="green";
+	    color2[7]="brown";
+	    for(int i =0;i<4;i++){
+	    	int random2 = random.nextInt(7)+0;
+	    	if(s[random2]){
+	    	x[i]=color2[random2];
+	    	s[random2]=false;
+	    	}
+	    	else {i--;}
+	    	
+	    }
+	    return x;
+	       
+	       
+	}
+	
+	public boolean check(String[] list){
+		boolean check = false;
+		int colorCount=0;
+		int posCount=0;
+		for(int x=0;x<list.length;x++){
+			for(int y=0;y<list.length;y++){
+				if(list[y].equals(color[x])){
+					colorCount+=1;
+				}
+			}
+		}
+		for(int i=0;i<list.length;i++){
+			if(color[i].equals(list[i])){
+				posCount+=1;
+			}
+		}
+		JOptionPane.showMessageDialog(null,colorCount+" colors are right colors, "+posCount+" colors are right colors and in right position.");
+	    if(posCount==4){
+            check=true;
+	}
+	    return check;
+	
+	}
+	public int setMax(){
+		int maximum=Integer.parseInt(JOptionPane.showInputDialog("Set a maximum guess for yourself", 8));
+		return maximum;
+	}
+	public String[] getColor(){
+		return color;
+	}
+	
+	
+	
+}
+
+
