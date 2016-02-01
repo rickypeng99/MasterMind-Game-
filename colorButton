@@ -1,0 +1,94 @@
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import javax.swing.ImageIcon;
+import javax.swing.JButton;
+
+public class colorButton extends JButton implements ActionListener {
+	ImageIcon red, blue, green,brown,black,orange,purple,white;
+	int value = 0;
+	
+
+	
+	public colorButton() {
+		red =   new ImageIcon(this.getClass().getResource("red.png"));
+		blue =  new ImageIcon(this.getClass().getResource("blue.png"));
+		green = new ImageIcon(this.getClass().getResource("green.png"));
+		brown = new ImageIcon(this.getClass().getResource("144807076864757.png"));
+		black = new ImageIcon(this.getClass().getResource("black.png"));
+		purple= new ImageIcon(this.getClass().getResource("purple.png"));
+		orange= new ImageIcon(this.getClass().getResource("orange.png"));
+		white=  new ImageIcon(this.getClass().getResource("white.png"));
+		
+
+		this.addActionListener(this);
+	}
+	public String getColor(){
+		String color = "lol";
+		if(value==1){
+          color="red";
+	}
+		else if(value==2){
+			color="blue";
+		}
+		else if(value==3){
+			color="green";
+		}
+		else if(value==4){
+			color="brown";
+		}
+		else if(value==5){
+			color="black";
+		}
+		else if(value==6){
+			color="purple";
+		}
+		else if(value==7){
+			color="orange";
+		}
+		else if(value==0){
+			color="white";
+		}
+		
+		return color;
+	}
+	
+	
+	public void actionPerformed(ActionEvent e){
+		
+		switch(value){
+		case 0:
+			setIcon(red);
+		    
+			break;
+		case 1:
+			setIcon(blue);
+		
+			break;
+		case 2:
+			setIcon(green);
+			
+			break;
+		case 3:
+			setIcon(brown);
+            break;
+		case 4:
+			setIcon(black);
+			break;
+		case 5:
+			setIcon(purple);
+			break;
+		case 6:
+			setIcon(orange);
+			break;
+		case 7:
+			setIcon(white);
+			break;
+		
+		}
+			
+			value ++;
+			value %=8;
+ 		}
+		
+	}
+
